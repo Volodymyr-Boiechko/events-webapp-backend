@@ -1,0 +1,39 @@
+spring:
+  datasource:
+    jdbc-url: jdbc:mysql://${datasource.domain}:${datasource.port}/${datasource.schema}?user=${datasource.user}&password=${datasource.password}&serverTimezone=UTC
+  jpa:
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: false
+        cache:
+          use_query_cache: true
+          region:
+            factory_class: org.hibernate.cache.ehcache.EhCacheRegionFactory
+  flyway:
+    locations: classpath:db/migration/
+    baseline-on-migrate: true
+    sql-migration-prefix: V
+    sql-migration-suffixes: .sql
+    schemas: events
+    enabled: true
+    placeholder-replacement: false
+    table: schema_version
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: boiechko.work@gmail.com
+    password: 28171821
+    test-connection: true
+
+base-ur: http://localhost:8082
+
+datasource:
+  schema: events
+  port: 3306
+  user: events
+  password: CYqawSWfHjLfNzYT1@
+  domain: localhost
+
+server:
+  port: 8082

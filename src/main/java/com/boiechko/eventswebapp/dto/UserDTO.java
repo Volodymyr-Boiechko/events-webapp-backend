@@ -20,5 +20,7 @@ public class UserDTO {
   private LocalDate birthDate;
   private LocalDateTime createdAt;
   private Boolean isActive;
+  private RoleDTO role;
+  private AddressDTO address;
 
 }

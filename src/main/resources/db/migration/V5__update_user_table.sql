@@ -1,0 +1,2 @@
+ALTER TABLE user ADD COLUMN address_id BIGINT;
+ALTER TABLE user ADD CONSTRAINT FOREIGN KEY (address_id) REFERENCES address (id);

@@ -61,4 +61,8 @@ public class UserEntity {
   @JoinColumn(name = "role_id", nullable = false)
   private RoleEntity role;
 
+  @ManyToOne
+  @JoinColumn(name = "address_id")
+  private AddressEntity address;
+
 }

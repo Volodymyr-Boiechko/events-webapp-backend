@@ -1,5 +1,18 @@
 <router-outlet></router-outlet>
 
-<h1>
-  Init frontend
-</h1>
+<ngx-spinner name="full"
+             bdColor="rgba(51, 51, 51, 0.5)"
+             size="large"
+             color="#ADB5BD"
+             type="timer"
+             [fullScreen]="true">
+</ngx-spinner>
+<ngx-spinner name="detectedChanges"
+             bdColor="rgba(0,0,0,0.7)"
+             class="changes-detected-spinner"
+             size="large"
+             color="#a0a0a0"
+             type="ball-clip-rotate-pulse"
+             [fullScreen]="true">
+  <p style="color: #a0a0a0"> A new version has been detected. The page will reload soon. Please wait. </p>
+</ngx-spinner>

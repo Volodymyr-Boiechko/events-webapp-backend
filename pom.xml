@@ -10,9 +10,10 @@
     <relativePath/> <!-- lookup parent from repository -->
   </parent>
   <groupId>com.boiechko</groupId>
-  <artifactId>events</artifactId>
+  <artifactId>events-webapp</artifactId>
+  <packaging>war</packaging>
   <version>0.0.1-SNAPSHOT</version>
-  <name>events</name>
+  <name>events-webapp</name>
   <description>Events project</description>
 
   <properties>

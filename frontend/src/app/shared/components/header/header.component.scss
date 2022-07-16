@@ -1,0 +1,42 @@
+.header {
+  width: 80% !important;
+  margin: 0 auto !important;
+  background: #FFFFFF;
+  border-radius: 0 0 50px 50px;
+
+  &-title {
+    font-family: 'Baloo', serif;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 30px;
+    line-height: 47px;
+    color: #FCC117;
+  }
+
+  &-elements {
+
+    font-weight: bold;
+
+    &-element {
+      font-family: 'Poppins', sans-serif;
+      font-style: normal;
+      font-weight: 500;
+      font-size: 18px;
+      line-height: 27px;
+      color: #000000;
+    }
+
+    &-login {
+      text-align: center;
+      line-height: 30px;
+      width: 100px;
+      height: 30px;
+      background: #FCC117;
+      border-radius: 10px;
+      font-weight: 500;
+    }
+
+  }
+
+
+}

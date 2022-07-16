@@ -8,18 +8,17 @@ const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    redirectTo: 'login',
-    canLoad: [UserNoAuthGuard]
+    redirectTo: 'home'
   },
   {
     path: 'login',
     component: LoginComponent,
-    canLoad: [UserNoAuthGuard]
+    canActivate: [UserNoAuthGuard]
   },
   {
     path: 'home',
     loadChildren: () => import('./pages/portal/home/home.module').then(m => m.HomeModule),
-    canLoad: [UserAuthGuard]
+    canActivate: [UserAuthGuard]
   },
   {
     path: '**',
@@ -28,8 +27,15 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  imports: [
+    RouterModule.forRoot(routes)
+  ],
+  exports: [
+    RouterModule
+  ],
+  providers: [
+    UserNoAuthGuard, UserAuthGuard
+  ]
 })
 export class AppRoutingModule {
 }

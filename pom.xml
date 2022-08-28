@@ -11,7 +11,7 @@
   </parent>
   <groupId>com.boiechko</groupId>
   <artifactId>events-webapp</artifactId>
-  <packaging>war</packaging>
+  <packaging>jar</packaging>
   <version>0.0.1-SNAPSHOT</version>
   <name>events-webapp</name>
   <description>Events project</description>
@@ -195,72 +195,6 @@
       <activation>
         <activeByDefault>false</activeByDefault>
       </activation>
-      <build>
-        <plugins>
-          <plugin>
-            <groupId>com.github.eirslett</groupId>
-            <artifactId>frontend-maven-plugin</artifactId>
-            <version>${frontend-plugin.verion}</version>
-            <configuration>
-              <workingDirectory>${client.project}</workingDirectory>
-              <nodeDownloadRoot>https://nodejs.org/dist/</nodeDownloadRoot>
-              <nodeVersion>${node.version}</nodeVersion>
-              <installDirectory>${basedir}/target</installDirectory>
-            </configuration>
-            <executions>
-              <execution>
-                <id>install node and npm</id>
-                <goals>
-                  <goal>install-node-and-npm</goal>
-                </goals>
-              </execution>
-              <execution>
-                <id>npm install</id>
-                <goals>
-                  <goal>npm</goal>
-                </goals>
-                <phase>generate-resources</phase>
-                <configuration>
-                  <arguments>install</arguments>
-                </configuration>
-              </execution>
-              <execution>
-                <id>np run build --prod</id>
-                <goals>
-                  <goal>npm</goal>
-                </goals>
-                <phase>generate-resources</phase>
-                <configuration>
-                  <arguments>run build</arguments>
-                </configuration>
-              </execution>
-            </executions>
-          </plugin>
-
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-antrun-plugin</artifactId>
-            <version>3.0.0</version>
-            <executions>
-              <execution>
-                <id>bundle-frontend</id>
-                <phase>generate-resources</phase>
-                <configuration>
-                  <target>
-                    <copy toDir="${basedir}/src/main/resources/public">
-                      <fileset dir="${basedir}/target/static"/>
-                    </copy>
-                  </target>
-                </configuration>
-                <goals>
-                  <goal>run</goal>
-                </goals>
-              </execution>
-            </executions>
-          </plugin>
-
-        </plugins>
-      </build>
     </profile>
   </profiles>
 
@@ -294,11 +228,6 @@
         <artifactId>maven-checkstyle-plugin</artifactId>
         <version>3.1.2</version>
         <dependencies>
-          <dependency>
-            <groupId>com.zappysales</groupId>
-            <artifactId>build-tools</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-          </dependency>
           <dependency>
             <groupId>com.puppycrawl.tools</groupId>
             <artifactId>checkstyle</artifactId>

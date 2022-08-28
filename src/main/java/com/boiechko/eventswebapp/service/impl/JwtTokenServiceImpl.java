@@ -1,5 +1,7 @@
 package com.boiechko.eventswebapp.service.impl;
 
+import static com.boiechko.eventswebapp.util.DateUtils.getCurrentDateTime;
+
 import com.boiechko.eventswebapp.config.security.UserPrincipal;
 import com.boiechko.eventswebapp.service.JwtTokenService;
 import io.jsonwebtoken.Claims;
@@ -70,13 +72,15 @@ public class JwtTokenServiceImpl implements JwtTokenService {
 
   @Override
   public boolean isTokenExpired(final String token) {
-    final LocalDateTime expirationDate = getExpirationDateFromToken(token).toInstant().atZone(
-        ZoneId.systemDefault()).toLocalDateTime();
-    return expirationDate.isBefore(LocalDateTime.now());
+    final LocalDateTime expirationDate =
+        getExpirationDateFromToken(token)
+            .toInstant()
+            .atZone(ZoneId.systemDefault())
+            .toLocalDateTime();
+    return expirationDate.isBefore(getCurrentDateTime());
   }
 
   private Date getExpirationDateFromToken(final String token) {
     return getClaimFromToken(token, Claims::getExpiration);
   }
-
 }

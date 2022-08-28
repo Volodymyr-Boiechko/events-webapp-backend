@@ -1,5 +1,7 @@
 package com.boiechko.eventswebapp.service.impl.auth;
 
+import static com.boiechko.eventswebapp.util.DateUtils.getCurrentDateTime;
+
 import com.boiechko.eventswebapp.dto.AuthTokenDto;
 import com.boiechko.eventswebapp.entity.AuthTokenEntity;
 import com.boiechko.eventswebapp.enums.DestinationType;
@@ -13,13 +15,11 @@ import com.boiechko.eventswebapp.mapper.AuthTokenMapper;
 import com.boiechko.eventswebapp.repository.AuthTokenRepository;
 import com.boiechko.eventswebapp.service.DestinationTypeService;
 import com.boiechko.eventswebapp.util.Assert;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.catalina.security.SecurityUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.client.HttpClientErrorException;
@@ -30,17 +30,14 @@ public abstract class AbstractAuthTokenService implements AuthTokenService, Dest
   protected final DestinationType targetDestination;
   protected final AuthTokenRepository authTokenRepository;
   protected final AuthTokenMapper authTokenMapper;
-  protected final SecurityUtil securityUtil;
 
   public AbstractAuthTokenService(
       final DestinationType targetDestination,
       final AuthTokenRepository authTokenRepository,
-      final AuthTokenMapper authTokenMapper,
-      final SecurityUtil securityUtil) {
+      final AuthTokenMapper authTokenMapper) {
     this.targetDestination = targetDestination;
     this.authTokenRepository = authTokenRepository;
     this.authTokenMapper = authTokenMapper;
-    this.securityUtil = securityUtil;
   }
 
   @Override
@@ -156,7 +153,7 @@ public abstract class AbstractAuthTokenService implements AuthTokenService, Dest
     boolean tokenExpired = false;
 
     if (Objects.nonNull(authToken.getExpires())) {
-      tokenExpired = LocalDateTime.now().isAfter(authToken.getExpires());
+      tokenExpired = getCurrentDateTime().isAfter(authToken.getExpires());
     }
 
     return tokenExpired;
@@ -166,7 +163,7 @@ public abstract class AbstractAuthTokenService implements AuthTokenService, Dest
   public boolean canBeRefreshed(final AuthTokenDto authToken) {
     return Objects.nonNull(authToken.getRefreshToken())
         && (Objects.isNull(authToken.getRefreshTokenExpiresIn())
-            || authToken.getRefreshTokenExpiresIn().isAfter(LocalDateTime.now()));
+            || authToken.getRefreshTokenExpiresIn().isAfter(getCurrentDateTime()));
   }
 
   @Override

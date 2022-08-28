@@ -1,6 +1,7 @@
 package com.boiechko.eventswebapp.util;
 
 import java.util.Objects;
+import java.util.UUID;
 import lombok.experimental.UtilityClass;
 import org.apache.commons.lang3.RandomStringUtils;
 
@@ -18,5 +19,9 @@ public class GeneralUtils {
       return null;
     }
     return val.replaceAll("[\\n\\t\\r ]", "");
+  }
+
+  public static String generateUuid() {
+    return UUID.randomUUID().toString();
   }
 }

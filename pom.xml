@@ -28,8 +28,19 @@
     <frontend-plugin.verion>1.6</frontend-plugin.verion>
     <client.project>${basedir}/frontend</client.project>
     <node.version>v14.15.0</node.version>
-
   </properties>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.junit</groupId>
+        <artifactId>junit-bom</artifactId>
+        <version>5.9.0</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
 
   <dependencies>
 
@@ -165,6 +176,14 @@
       <groupId>org.springframework.social</groupId>
       <artifactId>spring-social-google</artifactId>
       <version>1.0.0.RELEASE</version>
+    </dependency>
+
+    <!--Junit tests-->
+
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter</artifactId>
+      <scope>test</scope>
     </dependency>
 
 

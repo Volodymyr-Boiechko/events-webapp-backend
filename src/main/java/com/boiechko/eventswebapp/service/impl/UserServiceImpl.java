@@ -11,6 +11,7 @@ import com.boiechko.eventswebapp.repository.UserRepository;
 import com.boiechko.eventswebapp.service.RoleService;
 import com.boiechko.eventswebapp.service.UserService;
 import com.boiechko.eventswebapp.util.Assert;
+import com.boiechko.eventswebapp.util.DateUtils;
 import com.boiechko.eventswebapp.util.GeneralUtils;
 import com.boiechko.eventswebapp.util.SecurityUtils;
 import java.util.List;
@@ -71,6 +72,7 @@ public class UserServiceImpl implements UserService {
     if (Objects.isNull(userDto.getRole())) {
       userDto.setRole(roleService.getRoleByName(UserRole.USER.name()));
     }
+    userDto.setCreatedAt(DateUtils.getCurrentDateTime());
     log.info("Saving new user {} to the database", userDto.getUserName());
     final UserEntity userEntity = userMapper.toEntity(userDto);
     if (Objects.nonNull(userDto.getPassword())) {

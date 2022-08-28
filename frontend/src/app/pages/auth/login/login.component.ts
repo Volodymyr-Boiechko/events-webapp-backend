@@ -7,19 +7,12 @@ import {HttpErrorResponse} from "@angular/common/http";
 import {ClearObservable} from "../../../shared/components/clear-observable/clear-observable";
 import {ToasterConfigService} from "../../../shared/services/toaster-config.service";
 import {NgxSpinnerService} from "ngx-spinner";
-import {skipWhile} from "rxjs/operators";
+import {filter, skipWhile, takeUntil} from "rxjs/operators";
 import {flatMap} from "rxjs/internal/operators";
 import {UserService} from "../../../shared/services/user-service";
 import {User} from "../../../types/user";
-
-export interface AuthUser {
-  username: string;
-  password: string;
-}
-
-interface JWTToken {
-  jwtToken: string;
-}
+import {AuthUser} from "../../../types/auth-user";
+import {JWTToken} from "../../../types/jwt-token";
 
 @Component({
   selector: 'app-login',
@@ -44,37 +37,26 @@ export class LoginComponent extends ClearObservable implements OnInit {
   ngOnInit() {
 
     this.route.queryParams
-    .subscribe(params => {
-      if (params['token']) {
-        this.loginToken = params['token'];
-        this.location.go('login');
+    .pipe(takeUntil(this.destroy$), filter(el => !!el))
+    .subscribe((params: { accessToken: string }) => {
+      if (params.accessToken) {
+        this.authService.setToken(params.accessToken);
+        this.userService.getCurrentAccount()
+        .subscribe((user: any | User) => {
+          this.userService.setCurrentUser(user);
+          this.spinner.hide('full')
+          .then(() => {
+            this.router.navigate(['/home']);
+          })
+        }, (err: HttpErrorResponse) => {
+          this.spinner.hide('full')
+          .then(() => this.toaster.error(err.error.message));
+        });
+
+      } else {
+        this.initLoginForm();
       }
     });
-
-    if (this.loginToken) {
-      this.authService.getJWTTokenFromLoginToken(this.loginToken)
-      .pipe(
-        skipWhile((res: JWTToken) => {
-          if (res.jwtToken) {
-            this.authService.setToken(res.jwtToken);
-          } else {
-            return null;
-          }
-        }),
-        flatMap(() => this.userService.getCurrentAccount())
-      )
-      .subscribe((user: User) => {
-        this.userService.setCurrentUser(user);
-        this.router.navigate(['/home']);
-      }, err => {
-        this.loginToken = null;
-        this.initLoginForm();
-        this.toaster.error(err.error.message);
-      });
-    } else {
-      this.initLoginForm();
-    }
-
   }
 
   private initLoginForm() {
@@ -117,9 +99,12 @@ export class LoginComponent extends ClearObservable implements OnInit {
         })
       }, (err: HttpErrorResponse) => {
         this.spinner.hide('full')
-        .then(() => this.toaster.error(err.error.message));
+        .then(() => this.toaster.error(err.message));
       });
     });
   }
 
+  loginViaGoogle() {
+    this.authService.googleLogin();
+  }
 }

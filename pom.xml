@@ -310,6 +310,7 @@
           <encoding>UTF-8</encoding>
           <configLocation>src/main/resources/codestyle/google_checks.xml
           </configLocation>
+          <sourceDirectories>${project.build.sourceDirectory}</sourceDirectories>
         </configuration>
         <executions>
           <execution>

@@ -26,7 +26,16 @@ spring:
     password: 28171821
     test-connection: true
 
-base-ur: http://localhost:8082
+google:
+  clientId: 234278654569-kv92p5pf7mdvtbcnt76boh2rjvnqhrub.apps.googleusercontent.com
+  clientSecret: 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
+  scope: profile email https://www.googleapis.com/auth/user.gender.read https://www.googleapis.com/auth/user.birthday.read https://www.googleapis.com/auth/user.addresses.read https://www.googleapis.com/auth/user.phonenumbers.read https://www.googleapis.com/auth/user.emails.read
+  auth-url: https://accounts.google.com/o/oauth2/v2/auth
+  api-url: https://people.googleapis.com/v1
+  redirect-url: ${base-url}/api/google
+  refresh-token-expires-in-days: 180
+
+base-url: http://localhost:8082
 
 datasource:
   schema: events
@@ -38,7 +47,10 @@ datasource:
 server:
   port: 8082
 
-
 jwt:
   secret: tU3c8tELeCQ2avgNG8AU
   validation-time-in-sec: 604800
+
+rest-template:
+  read-timeout-in-minutes: 2
+  connect-timeout-in-minutes: 2

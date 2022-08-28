@@ -1,51 +1,85 @@
-<div *ngIf="!loginToken" class="login-container w-100" fxFlexFill fxLayoutAlign="center center">
-  <mat-card fxFlex.lt-sm="100" fxFlex="450px" fxLayout="column">
-    <div [ngClass]="{'mt-1': userService.isIE}" fxFlex="100" fxLayoutAlign="start center">
-      <img style="width: 140px;" src="assets/icons/logo.jpg" alt="logo">
-    </div>
+<div class="login vh-100">
+  <app-header></app-header>
 
-    <form class="mt-1" fxLayout="column" autocomplete="on" (ngSubmit)="loginForm.valid && submit()" [formGroup]="loginForm">
-      <mat-form-field appearance="outline">
-        <mat-label>Login</mat-label>
-        <input matInput id="loginInput" [required]="true" type="text" placeholder="Email or Username" formControlName="login">
+  <div *ngIf="!loginToken" class="w-100" fxLayoutAlign="center center" fxLayout="column">
 
-        <mat-error *ngIf="loginForm.get('login').hasError('required')">
-          Login is required
-        </mat-error>
+    <h1 class="login-title mt-3">
+      Login Your Account
+    </h1>
 
-        <mat-error *ngIf="loginForm.get('login').hasError('minlength')">
-          Login length must be at least 4 symbols
-        </mat-error>
-      </mat-form-field>
+    <mat-card class="login-form mt-3" fxLayout="column">
 
-      <mat-form-field appearance="outline">
-        <mat-label>Password</mat-label>
-        <input matInput id="passwordInput" [required]="true" type="password" placeholder="Password" formControlName="password">
+      <form class="mt-1" fxLayout="column" autocomplete="on"
+            (ngSubmit)="loginForm.valid && submit()" [formGroup]="loginForm">
+        <mat-form-field appearance="outline">
+          <mat-label>Login</mat-label>
+          <input matInput id="loginInput" [required]="true" type="text"
+                 placeholder="Email or Username" formControlName="login">
 
-        <mat-error *ngIf="loginForm.get('password').hasError('required')">
-          Password is required
-        </mat-error>
+          <mat-error *ngIf="loginForm.get('login').hasError('required')">
+            Login is required
+          </mat-error>
 
-        <mat-error *ngIf="loginForm.get('password').hasError('minlength')">
-          Password length must be at least 5 symbols
-        </mat-error>
-      </mat-form-field>
+          <mat-error *ngIf="loginForm.get('login').hasError('minlength')">
+            Login length must be at least 4 symbols
+          </mat-error>
+        </mat-form-field>
 
-      <mat-card>
+        <mat-form-field appearance="outline">
+          <mat-label>Password</mat-label>
+          <input matInput id="passwordInput" [required]="true" type="password"
+                 placeholder="Password" formControlName="password">
 
-      </mat-card>
+          <mat-error *ngIf="loginForm.get('password').hasError('required')">
+            Password is required
+          </mat-error>
 
-      <div fxLayoutAlign="space-between center">
-        <p class="text-center support box-title">
-          Can’t login? <a class="box-title">Reset your password.</a>
-        </p>
-        <button mat-raised-button color="accent" [disabled]="loginForm.invalid && loginForm.touched" type="submit">
+          <mat-error *ngIf="loginForm.get('password').hasError('minlength')">
+            Password length must be at least 5 symbols
+          </mat-error>
+        </mat-form-field>
+
+        <div class="mt-1" fxLayout="row" fxLayoutAlign="end center">
+          <p class="text-center support box-title">
+            Forgot Password?
+          </p>
+        </div>
+
+        <button class="submit mt-2" mat-raised-button color="accent" type="submit"
+                [disabled]="loginForm.invalid && loginForm.touched"
+        >
           Login
         </button>
+
+      </form>
+
+      <div class="separator w-100 mt-1 mb-1">or</div>
+
+      <p *ngIf="userService.isIE" class="ie-warning">
+        Your web browser is not supported. Please use another browser.
+      </p>
+
+      <div class="social" fxLayout="column" fxLayoutAlign="center center">
+
+        <button (click)="loginViaGoogle()" class="w-100" mat-button style="padding: 1rem;">
+          <mat-icon svgIcon="google-logo"></mat-icon>
+          Sign in with Google
+        </button>
+
+        <button class="w-100 mt-1" mat-button style="padding: 1rem;">
+          <mat-icon svgIcon="facebook-logo"></mat-icon>
+          Sign in with Facebook
+        </button>
+
       </div>
-    </form>
-    <p *ngIf="userService.isIE" class="ie-warning"> Your web browser is not supported. Please use another browser.
-    </p>
-  </mat-card>
+
+    </mat-card>
+
+    <h2 class="login-footer mt-3">
+      Don't have account? <span class="login-footer-link">Click here</span>
+    </h2>
+
+  </div>
+
 </div>
 <div *ngIf="loginToken" class="loader"></div>

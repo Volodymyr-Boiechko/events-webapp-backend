@@ -38,7 +38,10 @@ datasource:
 server:
   port: 8082
 
-
 jwt:
   secret: tU3c8tELeCQ2avgNG8AU
   validation-time-in-sec: 604800
+
+rest-template:
+  read-timeout-in-minutes: 2
+  connect-timeout-in-minutes: 2

@@ -4,6 +4,7 @@ import static com.boiechko.eventswebapp.config.AppConstants.REDIRECT_URL;
 import static com.boiechko.eventswebapp.config.AppConstants.TEMPORARY_IDENTIFIER;
 import static com.boiechko.eventswebapp.util.DateUtils.convertEpochMillis;
 import static com.boiechko.eventswebapp.util.DateUtils.getCurrentDateTime;
+import static com.boiechko.eventswebapp.util.DateUtils.getLocalDateFromValues;
 
 import com.boiechko.eventswebapp.config.security.UserPrincipal;
 import com.boiechko.eventswebapp.criteria.auth.IdentificationTokenExistsCriteria;
@@ -26,7 +27,6 @@ import com.boiechko.eventswebapp.util.HttpUtils;
 import com.boiechko.eventswebapp.util.JacksonUtils;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
@@ -235,7 +235,7 @@ public class GoogleServiceImpl implements GoogleService {
         () -> {
           final JsonNode birthdayNode = jsonNode.get("birthdays").get(0).get("date");
           userDto.setBirthDate(
-              LocalDate.of(
+              getLocalDateFromValues(
                   birthdayNode.get("year").asInt(),
                   birthdayNode.get("month").asInt(),
                   birthdayNode.get("day").asInt()));

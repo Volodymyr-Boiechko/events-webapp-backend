@@ -1,6 +1,8 @@
 package com.boiechko.eventswebapp.service.impl;
 
+import static com.boiechko.eventswebapp.util.DateUtils.convertDate;
 import static com.boiechko.eventswebapp.util.DateUtils.getCurrentDateTime;
+import static com.boiechko.eventswebapp.util.DateUtils.getCurrentEpoch;
 
 import com.boiechko.eventswebapp.config.security.UserPrincipal;
 import com.boiechko.eventswebapp.service.JwtTokenService;
@@ -8,7 +10,6 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -64,19 +65,15 @@ public class JwtTokenServiceImpl implements JwtTokenService {
     return Jwts.builder()
         .setClaims(claims)
         .setSubject(subject)
-        .setIssuedAt(new Date(System.currentTimeMillis()))
-        .setExpiration(new Date(System.currentTimeMillis() + tokenValidationTimeInSeconds * 1_000))
+        .setIssuedAt(new Date(getCurrentEpoch()))
+        .setExpiration(new Date(getCurrentEpoch() + tokenValidationTimeInSeconds * 1_000))
         .signWith(SignatureAlgorithm.HS512, secret)
         .compact();
   }
 
   @Override
   public boolean isTokenExpired(final String token) {
-    final LocalDateTime expirationDate =
-        getExpirationDateFromToken(token)
-            .toInstant()
-            .atZone(ZoneId.systemDefault())
-            .toLocalDateTime();
+    final LocalDateTime expirationDate = convertDate(getExpirationDateFromToken(token));
     return expirationDate.isBefore(getCurrentDateTime());
   }
 

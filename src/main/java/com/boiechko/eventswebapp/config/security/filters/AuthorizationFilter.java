@@ -1,7 +1,7 @@
 package com.boiechko.eventswebapp.config.security.filters;
 
 import com.boiechko.eventswebapp.config.security.UserPrincipal;
-import com.boiechko.eventswebapp.dto.ErrorDTO;
+import com.boiechko.eventswebapp.dto.ErrorDto;
 import com.boiechko.eventswebapp.service.JwtTokenService;
 import com.boiechko.eventswebapp.util.JacksonUtils;
 import io.jsonwebtoken.JwtException;
@@ -69,7 +69,7 @@ public class AuthorizationFilter extends OncePerRequestFilter {
     response.setStatus(httpStatus.value());
     response.setHeader("Content-Type", MediaType.APPLICATION_JSON_VALUE);
     JacksonUtils.OBJECT_MAPPER.writeValue(response.getOutputStream(),
-        new ErrorDTO(HttpStatus.UNAUTHORIZED.value(), responseMessage));
+        new ErrorDto(HttpStatus.UNAUTHORIZED.value(), responseMessage));
   }
 
 }

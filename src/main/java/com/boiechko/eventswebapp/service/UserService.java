@@ -1,16 +1,16 @@
 package com.boiechko.eventswebapp.service;
 
-import com.boiechko.eventswebapp.dto.UserDTO;
+import com.boiechko.eventswebapp.dto.UserDto;
 import java.util.List;
 
 public interface UserService {
 
-  UserDTO getCurrentLoggedInUser();
+  UserDto getCurrentLoggedInUser();
 
-  UserDTO getUser(final String userName);
+  UserDto getUser(final String userName);
 
-  UserDTO saveUser(final UserDTO userDTO);
+  UserDto saveUser(final UserDto userDto);
 
-  List<UserDTO> getAllUsers();
+  List<UserDto> getAllUsers();
 
 }

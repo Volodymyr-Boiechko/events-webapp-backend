@@ -15,10 +15,9 @@ import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import java.io.IOException;
 import java.util.Objects;
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
+import lombok.experimental.UtilityClass;
 
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@UtilityClass
 public class JacksonUtils {
 
   public static final ObjectMapper OBJECT_MAPPER;
@@ -34,12 +33,12 @@ public class JacksonUtils {
         .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
   }
 
-  public static <T> T deserialize(final String json, final Class<T> tClass) {
+  public static <T> T deserialize(final String json, final Class<T> objectClass) {
     if (Objects.isNull(json)) {
       return null;
     }
     try {
-      return OBJECT_MAPPER.readValue(json, tClass);
+      return OBJECT_MAPPER.readValue(json, objectClass);
     } catch (final IOException e) {
       throw new RuntimeException("Cannot deserialize: " + json, e);
     }

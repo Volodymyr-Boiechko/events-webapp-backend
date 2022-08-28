@@ -1,6 +1,6 @@
 package com.boiechko.eventswebapp.controller;
 
-import com.boiechko.eventswebapp.dto.UserDTO;
+import com.boiechko.eventswebapp.dto.UserDto;
 import com.boiechko.eventswebapp.service.UserService;
 import java.util.List;
 import org.springframework.http.ResponseEntity;
@@ -21,18 +21,18 @@ public class UserController {
   }
 
   @GetMapping("/me")
-  public ResponseEntity<UserDTO> getCurrentUser() {
+  public ResponseEntity<UserDto> getCurrentUser() {
     return ResponseEntity.ok(userService.getCurrentLoggedInUser());
   }
 
   @GetMapping("/all")
-  public ResponseEntity<List<UserDTO>> getAllUsers() {
+  public ResponseEntity<List<UserDto>> getAllUsers() {
     return ResponseEntity.ok().body(userService.getAllUsers());
   }
 
   @PostMapping
-  public ResponseEntity<UserDTO> saveUser(@RequestBody final UserDTO userDTO) {
-    return ResponseEntity.ok().body(userService.saveUser(userDTO));
+  public ResponseEntity<UserDto> saveUser(@RequestBody final UserDto userDto) {
+    return ResponseEntity.ok().body(userService.saveUser(userDto));
   }
 
 

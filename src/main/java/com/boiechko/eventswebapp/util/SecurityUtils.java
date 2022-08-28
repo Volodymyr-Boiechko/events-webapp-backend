@@ -4,13 +4,12 @@ import com.boiechko.eventswebapp.config.security.UserPrincipal;
 import com.boiechko.eventswebapp.exception.UnauthorizedException;
 import java.io.Serializable;
 import java.util.Objects;
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
+import lombok.experimental.UtilityClass;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@UtilityClass
 public class SecurityUtils implements Serializable {
 
   public static UserPrincipal getUserPrincipal() {

@@ -1,10 +1,9 @@
 package com.boiechko.eventswebapp.util;
 
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
+import lombok.experimental.UtilityClass;
 import org.apache.commons.lang3.RandomStringUtils;
 
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@UtilityClass
 public class GeneralUtils {
 
   private static final int PUBLIC_ID_LENGTH = 8;

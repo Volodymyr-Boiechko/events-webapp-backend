@@ -1,7 +1,7 @@
 package com.boiechko.eventswebapp.service.impl;
 
 import com.boiechko.eventswebapp.config.security.UserPrincipal;
-import com.boiechko.eventswebapp.dto.UserDTO;
+import com.boiechko.eventswebapp.dto.UserDto;
 import com.boiechko.eventswebapp.entity.UserEntity;
 import com.boiechko.eventswebapp.enums.UserRole;
 import com.boiechko.eventswebapp.exception.NotFoundException;
@@ -40,7 +40,7 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
-  public UserDTO getCurrentLoggedInUser() {
+  public UserDto getCurrentLoggedInUser() {
     final UserPrincipal userPrincipal = SecurityUtils.getUserPrincipal();
 
     UserEntity userEntity = null;
@@ -56,23 +56,25 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
-  public UserDTO getUser(final String userName) {
+  public UserDto getUser(final String userName) {
     log.info("Fetching user {}", userName);
     return userMapper.toDto(userRepository.findByUserName(userName));
   }
 
   @Override
-  public UserDTO saveUser(final UserDTO userDTO) {
-    Assert.isTrue(Objects.nonNull(userRepository.findByUserName(userDTO.getUserName())),
-        () -> new SystemApiException(String.format("User with username %s already exists", userDTO.getUserName()), HttpStatus.BAD_REQUEST));
+  public UserDto saveUser(final UserDto userDto) {
+    Assert.isTrue(Objects.nonNull(userRepository.findByUserName(userDto.getUserName())),
+        () -> new SystemApiException(
+            String.format("User with username %s already exists", userDto.getUserName()),
+            HttpStatus.BAD_REQUEST));
 
-    if (Objects.isNull(userDTO.getRole())) {
-      userDTO.setRole(roleService.getRoleByName(UserRole.USER.name()));
+    if (Objects.isNull(userDto.getRole())) {
+      userDto.setRole(roleService.getRoleByName(UserRole.USER.name()));
     }
-    log.info("Saving new user {} to the database", userDTO.getUserName());
-    final UserEntity userEntity = userMapper.toEntity(userDTO);
-    if (Objects.nonNull(userDTO.getPassword())) {
-      userEntity.setPassword(passwordEncoder.encode(userDTO.getPassword()));
+    log.info("Saving new user {} to the database", userDto.getUserName());
+    final UserEntity userEntity = userMapper.toEntity(userDto);
+    if (Objects.nonNull(userDto.getPassword())) {
+      userEntity.setPassword(passwordEncoder.encode(userDto.getPassword()));
     }
     userEntity.setPublicId(GeneralUtils.generatePublicId());
     userEntity.setIsActive(true);
@@ -80,7 +82,7 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
-  public List<UserDTO> getAllUsers() {
+  public List<UserDto> getAllUsers() {
     log.info("Fetching all users");
     return userMapper.toDto(userRepository.findAll());
   }

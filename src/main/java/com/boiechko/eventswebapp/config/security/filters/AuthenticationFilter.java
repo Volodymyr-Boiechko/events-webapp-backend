@@ -1,7 +1,7 @@
 package com.boiechko.eventswebapp.config.security.filters;
 
 import com.boiechko.eventswebapp.config.security.UserPrincipal;
-import com.boiechko.eventswebapp.dto.AuthDTO;
+import com.boiechko.eventswebapp.dto.AuthDto;
 import com.boiechko.eventswebapp.service.AuthenticationService;
 import com.boiechko.eventswebapp.util.JacksonUtils;
 import java.io.IOException;
@@ -42,10 +42,10 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
       final HttpServletResponse response) throws AuthenticationException {
     final String requestBodyInJsonString = request.getReader().lines()
         .collect(Collectors.joining(System.lineSeparator()));
-    final AuthDTO authDTO = JacksonUtils.deserialize(requestBodyInJsonString, AuthDTO.class);
-    assert authDTO != null;
-    log.info("Username is: {}, password is: {}", authDTO.getUsername(), authDTO.getPassword());
-    return authenticationService.authenticate(authDTO, request);
+    final AuthDto authDto = JacksonUtils.deserialize(requestBodyInJsonString, AuthDto.class);
+    assert authDto != null;
+    log.info("Username is: {}, password is: {}", authDto.getUsername(), authDto.getPassword());
+    return authenticationService.authenticate(authDto, request);
   }
 
   @Override

@@ -5,12 +5,9 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class AddressDTO {
+public class RoleDto {
 
   private Long id;
-  private String country;
-  private String city;
-  private String street;
-  private String postalCode;
+  private String roleName;
 
 }

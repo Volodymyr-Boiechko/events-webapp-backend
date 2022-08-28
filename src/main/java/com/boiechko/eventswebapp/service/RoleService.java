@@ -1,9 +1,9 @@
 package com.boiechko.eventswebapp.service;
 
-import com.boiechko.eventswebapp.dto.RoleDTO;
+import com.boiechko.eventswebapp.dto.RoleDto;
 
 public interface RoleService {
 
-  RoleDTO getRoleByName(final String name);
+  RoleDto getRoleByName(final String name);
 
 }

@@ -8,12 +8,11 @@ import java.util.Objects;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
 import lombok.NonNull;
+import lombok.experimental.UtilityClass;
 import org.aspectj.lang.JoinPoint;
 
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@UtilityClass
 public class Assert {
 
   public static final Action NONE_ACTION = () -> {
@@ -58,18 +57,6 @@ public class Assert {
     return Stream.of(array).anyMatch(list::contains);
   }
 
-  @FunctionalInterface
-  public interface Action {
-
-    void act();
-  }
-
-  @FunctionalInterface
-  public interface ReturnableAction<T> {
-
-    T act();
-  }
-
   public static <E> void noNullElements(Collection<E> elements, Supplier<SystemApiException> ex) {
     if (elements.stream().anyMatch(Objects::isNull)) {
       throw ex.get();
@@ -82,6 +69,18 @@ public class Assert {
     return amountPredicate.test(Stream.of(joinPoint.getArgs()).map(Object::getClass)
         .filter(neededArgsType::isAssignableFrom)
         .count());
+  }
+
+  @FunctionalInterface
+  public interface Action {
+
+    void act();
+  }
+
+  @FunctionalInterface
+  public interface ReturnableAction<T> {
+
+    T act();
   }
 
 }

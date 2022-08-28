@@ -7,9 +7,10 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ErrorDTO {
+public class AuthDto {
 
-  private int httpStatusCode;
-  private String message;
+  private String username;
+  private String password;
+  private String role;
 
 }

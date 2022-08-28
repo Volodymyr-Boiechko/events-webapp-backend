@@ -1,7 +1,7 @@
 package com.boiechko.eventswebapp.config.security;
 
-import com.boiechko.eventswebapp.dto.RoleDTO;
-import com.boiechko.eventswebapp.dto.UserDTO;
+import com.boiechko.eventswebapp.dto.RoleDto;
+import com.boiechko.eventswebapp.dto.UserDto;
 import com.boiechko.eventswebapp.enums.UserRole;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -18,19 +18,19 @@ public class UserPrincipal implements UserDetails {
   private Long id;
   private String publicId;
   private UserRole userRole;
-  private RoleDTO role;
+  private RoleDto role;
   private String userName;
   private String password;
   private boolean isEnabled;
 
-  public UserPrincipal(final UserDTO userDTO) {
-    this.id = userDTO.getId();
-    this.publicId = userDTO.getPublicId();
-    this.userRole = UserRole.findByName(userDTO.getRole().getRoleName());
-    this.role = userDTO.getRole();
-    this.userName = userDTO.getUserName();
-    this.password = userDTO.getPassword();
-    this.isEnabled = userDTO.getIsActive();
+  public UserPrincipal(final UserDto userDto) {
+    this.id = userDto.getId();
+    this.publicId = userDto.getPublicId();
+    this.userRole = UserRole.findByName(userDto.getRole().getRoleName());
+    this.role = userDto.getRole();
+    this.userName = userDto.getUserName();
+    this.password = userDto.getPassword();
+    this.isEnabled = userDto.getIsActive();
   }
 
   @Override

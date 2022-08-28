@@ -1,6 +1,6 @@
 package com.boiechko.eventswebapp.service.impl;
 
-import com.boiechko.eventswebapp.dto.RoleDTO;
+import com.boiechko.eventswebapp.dto.RoleDto;
 import com.boiechko.eventswebapp.mapper.RoleMapper;
 import com.boiechko.eventswebapp.repository.RoleRepository;
 import com.boiechko.eventswebapp.service.RoleService;
@@ -20,7 +20,7 @@ public class RoleServiceImpl implements RoleService {
 
 
   @Override
-  public RoleDTO getRoleByName(final String name) {
+  public RoleDto getRoleByName(final String name) {
     return roleMapper.toDto(roleRepository.getByRoleName(name));
   }
 }

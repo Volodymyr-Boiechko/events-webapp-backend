@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class UserDTO {
+public class UserDto {
 
   private Long id;
   private String publicId;
@@ -20,7 +20,7 @@ public class UserDTO {
   private LocalDate birthDate;
   private LocalDateTime createdAt;
   private Boolean isActive;
-  private RoleDTO role;
-  private AddressDTO address;
+  private RoleDto role;
+  private AddressDto address;
 
 }

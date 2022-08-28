@@ -33,9 +33,11 @@ public class AuthorizationFilter extends OncePerRequestFilter {
   }
 
   @Override
-  protected void doFilterInternal(final HttpServletRequest request,
+  protected void doFilterInternal(
+      final HttpServletRequest request,
       final HttpServletResponse response,
-      final FilterChain filterChain) throws ServletException, IOException {
+      final FilterChain filterChain)
+      throws ServletException, IOException {
 
     final String authorizationHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
 
@@ -63,13 +65,12 @@ public class AuthorizationFilter extends OncePerRequestFilter {
     filterChain.doFilter(request, response);
   }
 
-  private void setResponseStatus(final HttpServletResponse response,
-      final HttpStatus httpStatus,
-      final String responseMessage) throws IOException {
+  private void setResponseStatus(
+      final HttpServletResponse response, final HttpStatus httpStatus, final String responseMessage)
+      throws IOException {
     response.setStatus(httpStatus.value());
     response.setHeader("Content-Type", MediaType.APPLICATION_JSON_VALUE);
-    JacksonUtils.OBJECT_MAPPER.writeValue(response.getOutputStream(),
-        new ErrorDto(HttpStatus.UNAUTHORIZED.value(), responseMessage));
+    JacksonUtils.OBJECT_MAPPER.writeValue(
+        response.getOutputStream(), new ErrorDto(HttpStatus.UNAUTHORIZED.value(), responseMessage));
   }
-
 }

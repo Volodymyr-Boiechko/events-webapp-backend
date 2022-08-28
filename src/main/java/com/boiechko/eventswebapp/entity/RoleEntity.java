@@ -31,13 +31,10 @@ public class RoleEntity {
   @Column(name = "role_name", unique = true)
   private String roleName;
 
-
   @ManyToMany(cascade = {CascadeType.ALL})
   @JoinTable(
       name = "role_permission",
       joinColumns = {@JoinColumn(name = "role_id")},
-      inverseJoinColumns = {@JoinColumn(name = "permission_id")}
-  )
+      inverseJoinColumns = {@JoinColumn(name = "permission_id")})
   private Set<PermissionEntity> permissions;
-
 }

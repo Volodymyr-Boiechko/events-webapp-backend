@@ -5,6 +5,4 @@ import com.boiechko.eventswebapp.entity.AddressEntity;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
-public interface AddressMapper extends EntityMapper<AddressDto, AddressEntity> {
-
-}
+public interface AddressMapper extends EntityMapper<AddressDto, AddressEntity> {}

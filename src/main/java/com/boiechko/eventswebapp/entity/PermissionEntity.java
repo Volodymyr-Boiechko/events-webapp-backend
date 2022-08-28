@@ -25,5 +25,4 @@ public class PermissionEntity {
   @NonNull
   @Column(name = "permission_name", unique = true)
   private String permissionName;
-
 }

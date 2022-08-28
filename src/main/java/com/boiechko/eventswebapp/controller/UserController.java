@@ -34,6 +34,4 @@ public class UserController {
   public ResponseEntity<UserDto> saveUser(@RequestBody final UserDto userDto) {
     return ResponseEntity.ok().body(userService.saveUser(userDto));
   }
-
-
 }

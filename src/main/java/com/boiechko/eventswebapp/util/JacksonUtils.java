@@ -23,14 +23,16 @@ public class JacksonUtils {
   public static final ObjectMapper OBJECT_MAPPER;
 
   static {
-    OBJECT_MAPPER = new ObjectMapper()
-        .registerModule(new SimpleModule()
-            .addDeserializer(boolean.class, new BooleanDeserializer())
-            .addDeserializer(Boolean.class, new BooleanDeserializer())
-            .addSerializer(Boolean.class, new BooleanSerializer()))
-        .registerModule(new JavaTimeModule())
-        .configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false)
-        .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+    OBJECT_MAPPER =
+        new ObjectMapper()
+            .registerModule(
+                new SimpleModule()
+                    .addDeserializer(boolean.class, new BooleanDeserializer())
+                    .addDeserializer(Boolean.class, new BooleanDeserializer())
+                    .addSerializer(Boolean.class, new BooleanSerializer()))
+            .registerModule(new JavaTimeModule())
+            .configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false)
+            .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
   }
 
   public static <T> T deserialize(final String json, final Class<T> objectClass) {
@@ -69,8 +71,9 @@ public class JacksonUtils {
   public static class BooleanDeserializer extends JsonDeserializer<Boolean> {
 
     @Override
-    public Boolean deserialize(final JsonParser jsonParser,
-        final DeserializationContext deserializationContext) throws IOException, JacksonException {
+    public Boolean deserialize(
+        final JsonParser jsonParser, final DeserializationContext deserializationContext)
+        throws IOException, JacksonException {
       return jsonParser.getBooleanValue();
     }
 
@@ -78,16 +81,15 @@ public class JacksonUtils {
     public Boolean getNullValue(final DeserializationContext deserializationContext) {
       return Boolean.FALSE;
     }
-
   }
 
   public static class BooleanSerializer extends JsonSerializer<Boolean> {
 
     @Override
-    public void serialize(final Boolean value, final JsonGenerator generator,
-        final SerializerProvider provider) throws IOException {
+    public void serialize(
+        final Boolean value, final JsonGenerator generator, final SerializerProvider provider)
+        throws IOException {
       generator.writeBoolean(Objects.isNull(value) ? Boolean.FALSE : value);
     }
   }
-
 }

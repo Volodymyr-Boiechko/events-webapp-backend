@@ -8,5 +8,4 @@ import lombok.Data;
 public class JwtTokenDto {
 
   private String jwtToken;
-
 }

@@ -32,9 +32,7 @@ public class DataSourceConfig {
   public LocalContainerEntityManagerFactoryBean entityManagerFactory(
       @Qualifier("entityManagerFactoryBuilder") final EntityManagerFactoryBuilder builder,
       @Qualifier("dataSource") final DataSource dataSource) {
-    return builder.dataSource(dataSource)
-        .packages("com.boiechko.eventswebapp.entity")
-        .build();
+    return builder.dataSource(dataSource).packages("com.boiechko.eventswebapp.entity").build();
   }
 
   @Primary
@@ -43,5 +41,4 @@ public class DataSourceConfig {
       @Qualifier("entityManagerFactory") final EntityManagerFactory entityManagerFactory) {
     return new JpaTransactionManager(entityManagerFactory);
   }
-
 }

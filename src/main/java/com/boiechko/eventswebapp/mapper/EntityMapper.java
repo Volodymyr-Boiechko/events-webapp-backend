@@ -13,5 +13,4 @@ public interface EntityMapper<D, E> {
   D toDto(final E entity);
 
   List<D> toDto(final List<E> entityList);
-
 }

@@ -12,12 +12,10 @@ public class RoleServiceImpl implements RoleService {
   private final RoleRepository roleRepository;
   private final RoleMapper roleMapper;
 
-  public RoleServiceImpl(final RoleRepository roleRepository,
-      final RoleMapper roleMapper) {
+  public RoleServiceImpl(final RoleRepository roleRepository, final RoleMapper roleMapper) {
     this.roleRepository = roleRepository;
     this.roleMapper = roleMapper;
   }
-
 
   @Override
   public RoleDto getRoleByName(final String name) {

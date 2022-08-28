@@ -11,5 +11,4 @@ public class ErrorDto {
 
   private int httpStatusCode;
   private String message;
-
 }

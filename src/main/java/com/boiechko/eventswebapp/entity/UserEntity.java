@@ -64,5 +64,4 @@ public class UserEntity {
   @ManyToOne
   @JoinColumn(name = "address_id")
   private AddressEntity address;
-
 }

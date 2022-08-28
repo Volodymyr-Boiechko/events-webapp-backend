@@ -53,32 +53,25 @@ import org.springframework.web.client.HttpClientErrorException;
 @Service
 public class GoogleServiceImpl implements GoogleService {
 
-  @Value("${google.clientId}")
-  private String clientId;
-
-  @Value("${google.clientSecret}")
-  private String clientSecret;
-
-  @Value("${google.scope}")
-  private String scope;
-
-  @Value("${google.api-url}")
-  private String apiUrl;
-
-  @Value("${google.redirect-url}")
-  private String redirectUrl;
-
-  @Value("${google.refresh-token-expires-in-days}")
-  private Long refreshTokenExpiresInDays;
-
   private final QueryService queryService;
   private final AuthTokenService authTokenService;
   private final UserService userService;
   private final AuthenticationService authenticationService;
   private final IdentificationTokenExistsCriteria identificationTokenExistsCriteria;
-
   private final HttpSession httpSession;
   private final HttpServletRequest httpServletRequest;
+  @Value("${google.clientId}")
+  private String clientId;
+  @Value("${google.clientSecret}")
+  private String clientSecret;
+  @Value("${google.scope}")
+  private String scope;
+  @Value("${google.api-url}")
+  private String apiUrl;
+  @Value("${google.redirect-url}")
+  private String redirectUrl;
+  @Value("${google.refresh-token-expires-in-days}")
+  private Long refreshTokenExpiresInDays;
 
   public GoogleServiceImpl(
       final QueryService queryService,

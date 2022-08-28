@@ -12,5 +12,4 @@ public class SystemApiException extends RuntimeException {
     super(message);
     this.httpStatus = httpStatus;
   }
-
 }

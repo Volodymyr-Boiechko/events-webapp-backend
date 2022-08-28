@@ -14,12 +14,11 @@ public class SecurityUtils implements Serializable {
 
   public static UserPrincipal getUserPrincipal() {
     final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-    if (Objects.isNull(authentication) || Objects.isNull(authentication.getPrincipal())
+    if (Objects.isNull(authentication)
+        || Objects.isNull(authentication.getPrincipal())
         || Objects.equals(AnonymousAuthenticationToken.class, authentication.getClass())) {
       throw new UnauthorizedException("Unauthorized");
     }
     return (UserPrincipal) authentication.getPrincipal();
   }
-
-
 }

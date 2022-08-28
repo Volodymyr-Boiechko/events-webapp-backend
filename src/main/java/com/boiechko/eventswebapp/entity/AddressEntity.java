@@ -22,7 +22,6 @@ public class AddressEntity {
   @Column(name = "id")
   private Long id;
 
-
   @Column(name = "country")
   private String country;
 
@@ -34,5 +33,4 @@ public class AddressEntity {
 
   @Column(name = "postal_code")
   private String postalCode;
-
 }

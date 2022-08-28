@@ -38,10 +38,11 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
   @SneakyThrows
   @Override
-  public Authentication attemptAuthentication(final HttpServletRequest request,
-      final HttpServletResponse response) throws AuthenticationException {
-    final String requestBodyInJsonString = request.getReader().lines()
-        .collect(Collectors.joining(System.lineSeparator()));
+  public Authentication attemptAuthentication(
+      final HttpServletRequest request, final HttpServletResponse response)
+      throws AuthenticationException {
+    final String requestBodyInJsonString =
+        request.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
     final AuthDto authDto = JacksonUtils.deserialize(requestBodyInJsonString, AuthDto.class);
     assert authDto != null;
     log.info("Username is: {}, password is: {}", authDto.getUsername(), authDto.getPassword());
@@ -49,15 +50,17 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
   }
 
   @Override
-  protected void successfulAuthentication(final HttpServletRequest request,
+  protected void successfulAuthentication(
+      final HttpServletRequest request,
       final HttpServletResponse response,
       final FilterChain chain,
-      final Authentication authentication) throws IOException, ServletException {
+      final Authentication authentication)
+      throws IOException, ServletException {
     authenticationService.saveInSecurityContext(authentication);
     final UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
     response.setContentType(MediaType.APPLICATION_JSON_VALUE);
-    JacksonUtils.OBJECT_MAPPER.writeValue(response.getOutputStream(),
-        authenticationService.generateToken(userPrincipal));
+    JacksonUtils.OBJECT_MAPPER.writeValue(
+        response.getOutputStream(), authenticationService.generateToken(userPrincipal));
     getSuccessHandler().onAuthenticationSuccess(request, response, authentication);
   }
 }

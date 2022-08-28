@@ -30,7 +30,8 @@ public class UserServiceImpl implements UserService {
   private final PasswordEncoder passwordEncoder;
   private final RoleService roleService;
 
-  public UserServiceImpl(final UserRepository userRepository,
+  public UserServiceImpl(
+      final UserRepository userRepository,
       final UserMapper userMapper,
       final PasswordEncoder passwordEncoder,
       final RoleService roleService) {
@@ -46,8 +47,9 @@ public class UserServiceImpl implements UserService {
 
     UserEntity userEntity = null;
     if (Objects.nonNull(userPrincipal)) {
-      userEntity = userRepository.findByUserNameOrPublicId(userPrincipal.getUsername(),
-          userPrincipal.getPublicId());
+      userEntity =
+          userRepository.findByUserNameOrPublicId(
+              userPrincipal.getUsername(), userPrincipal.getPublicId());
     }
 
     if (Objects.isNull(userEntity)) {
@@ -64,10 +66,12 @@ public class UserServiceImpl implements UserService {
 
   @Override
   public UserDto saveUser(final UserDto userDto) {
-    Assert.isTrue(Objects.nonNull(userRepository.findByUserName(userDto.getUserName())),
-        () -> new SystemApiException(
-            String.format("User with username %s already exists", userDto.getUserName()),
-            HttpStatus.BAD_REQUEST));
+    Assert.isTrue(
+        Objects.nonNull(userRepository.findByUserName(userDto.getUserName())),
+        () ->
+            new SystemApiException(
+                String.format("User with username %s already exists", userDto.getUserName()),
+                HttpStatus.BAD_REQUEST));
 
     if (Objects.isNull(userDto.getRole())) {
       userDto.setRole(roleService.getRoleByName(UserRole.USER.name()));

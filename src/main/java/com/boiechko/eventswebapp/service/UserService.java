@@ -12,5 +12,4 @@ public interface UserService {
   UserDto saveUser(final UserDto userDto);
 
   List<UserDto> getAllUsers();
-
 }

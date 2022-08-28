@@ -13,5 +13,4 @@ public interface Criteria<T> {
    * @return true if criteria is met and false otherwise
    */
   boolean criteriaMet(final T t);
-
 }

@@ -16,7 +16,7 @@ public abstract class StrictCriteria<T> implements Criteria<T> {
    *
    * @return true if criteria is met
    * @throws CriteriaNotMetException with detailed description if criteria is not met
-   * @throws SystemApiException      if {@link StrictCriteria} is implemented in wrong way
+   * @throws SystemApiException if {@link StrictCriteria} is implemented in wrong way
    */
   public boolean criteriaMet(@NotNull T t) {
     boolean criteriaMet;
@@ -25,9 +25,11 @@ public abstract class StrictCriteria<T> implements Criteria<T> {
 
     if (!criteriaMet) {
       throw new SystemApiException(
-          String.format("It seems %s strict criteria has been implemented wrong, "
+          String.format(
+              "It seems %s strict criteria has been implemented wrong, "
                   + "because criteria should be met and you shouldn't see this message",
-              this.getClass().getSimpleName()), HttpStatus.INTERNAL_SERVER_ERROR);
+              this.getClass().getSimpleName()),
+          HttpStatus.INTERNAL_SERVER_ERROR);
     }
     return true;
   }

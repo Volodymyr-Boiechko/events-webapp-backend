@@ -18,5 +18,4 @@ public class AuthTokenDto {
   private LocalDateTime issued;
   private LocalDateTime expires;
   private DestinationType destinationType;
-
 }

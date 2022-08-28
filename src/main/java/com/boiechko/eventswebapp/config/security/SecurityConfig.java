@@ -29,7 +29,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
   private final AuthenticationFilter authenticationFilter;
   private final AuthorizationFilter authorizationFilter;
 
-  public SecurityConfig(final UserDetailsService userDetailsService,
+  public SecurityConfig(
+      final UserDetailsService userDetailsService,
       @Lazy final AuthenticationFilter authenticationFilter,
       final AuthorizationFilter authorizationFilter) {
     this.userDetailsService = userDetailsService;
@@ -64,8 +65,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .csrf()
         .disable()
         .authorizeRequests()
-        .antMatchers("/api/login", "/api/google/**").permitAll()
-        .antMatchers("/api/user/**").hasAuthority(UserRole.USER.name())
+        .antMatchers("/api/login", "/api/google/**")
+        .permitAll()
+        .antMatchers("/api/user/**")
+        .hasAuthority(UserRole.USER.name())
         .anyRequest()
         .authenticated()
         .and()
@@ -75,12 +78,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
         .maximumSessions(1)
         .sessionRegistry(sessionRegistry());
-
   }
 
   private UsernamePasswordAuthenticationFilter getAuthenticationFilter() {
     authenticationFilter.setFilterProcessesUrl("/api/login");
     return authenticationFilter;
   }
-
 }

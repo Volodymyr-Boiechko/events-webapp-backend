@@ -15,8 +15,7 @@ import org.aspectj.lang.JoinPoint;
 @UtilityClass
 public class Assert {
 
-  public static final Action NONE_ACTION = () -> {
-  };
+  public static final Action NONE_ACTION = () -> {};
 
   public static void isTrue(final boolean condition, final Supplier<RuntimeException> ex) {
     if (condition) {
@@ -29,7 +28,6 @@ public class Assert {
       throw ex.get();
     }
   }
-
 
   public static <T> void ifTrueThen(boolean condition, Action actionIfTrue) {
     ifTrueElse(condition, actionIfTrue, NONE_ACTION);
@@ -63,12 +61,13 @@ public class Assert {
     }
   }
 
-  public static <T> boolean containsParticularNumberOfNeededArgs(@NonNull JoinPoint joinPoint,
-      Class<T> neededArgsType,
-      Predicate<Long> amountPredicate) {
-    return amountPredicate.test(Stream.of(joinPoint.getArgs()).map(Object::getClass)
-        .filter(neededArgsType::isAssignableFrom)
-        .count());
+  public static <T> boolean containsParticularNumberOfNeededArgs(
+      @NonNull JoinPoint joinPoint, Class<T> neededArgsType, Predicate<Long> amountPredicate) {
+    return amountPredicate.test(
+        Stream.of(joinPoint.getArgs())
+            .map(Object::getClass)
+            .filter(neededArgsType::isAssignableFrom)
+            .count());
   }
 
   @FunctionalInterface
@@ -82,5 +81,4 @@ public class Assert {
 
     T act();
   }
-
 }

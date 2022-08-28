@@ -22,5 +22,4 @@ public class UserDto {
   private Boolean isActive;
   private RoleDto role;
   private AddressDto address;
-
 }

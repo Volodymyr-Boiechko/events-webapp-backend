@@ -12,4 +12,9 @@ public class AddressDto {
   private String city;
   private String street;
   private String postalCode;
+
+  public AddressDto(final LocationDto locationDto) {
+    this.country = locationDto.getCountry();
+    this.city = locationDto.getCity();
+  }
 }

@@ -11,11 +11,11 @@ spring:
 google:
   clientId: 234278654569-kv92p5pf7mdvtbcnt76boh2rjvnqhrub.apps.googleusercontent.com
   clientSecret: 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
-  scope: profile email https://www.googleapis.com/auth/user.gender.read https://www.googleapis.com/auth/user.birthday.read https://www.googleapis.com/auth/user.addresses.read https://www.googleapis.com/auth/user.phonenumbers.read https://www.googleapis.com/auth/user.emails.read
-  auth-url: https://accounts.google.com/o/oauth2/v2/auth
-  api-url: https://people.googleapis.com/v1
   redirect-url: ${base-url}/api/google
-  refresh-token-expires-in-days: 180
+
+facebook:
+  appId: 755177369114699
+  appSecret: 90ab026ae80a8cf5cd75bb067f870e65
 
 base-url: http://localhost:8082
 

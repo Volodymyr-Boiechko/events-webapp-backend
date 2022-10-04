@@ -18,13 +18,14 @@ public class AddressEntity {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @NonNull
   @Column(name = "id")
   private Long id;
 
+  @NonNull
   @Column(name = "country")
   private String country;
 
+  @NonNull
   @Column(name = "city")
   private String city;
 

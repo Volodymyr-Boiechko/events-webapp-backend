@@ -2,6 +2,7 @@ package com.boiechko.eventswebapp.entity;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -61,7 +62,7 @@ public class UserEntity {
   @JoinColumn(name = "role_id", nullable = false)
   private RoleEntity role;
 
-  @ManyToOne
+  @ManyToOne(cascade = CascadeType.ALL)
   @JoinColumn(name = "address_id")
   private AddressEntity address;
 }

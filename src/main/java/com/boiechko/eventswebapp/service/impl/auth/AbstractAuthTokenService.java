@@ -1,6 +1,7 @@
 package com.boiechko.eventswebapp.service.impl.auth;
 
 import static com.boiechko.eventswebapp.util.DateUtils.getCurrentDateTime;
+import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
 
 import com.boiechko.eventswebapp.dto.AuthTokenDto;
 import com.boiechko.eventswebapp.entity.AuthTokenEntity;
@@ -65,8 +66,10 @@ public abstract class AbstractAuthTokenService implements AuthTokenService, Dest
                   authTokenDto.getUser().getId(), targetDestination)
               .orElseThrow(NotFoundException::new);
       authTokenMapper.updateAuthTokenEntity(authTokenEntity, authTokenDto);
-    } catch (Exception e) {
+    } catch (NotFoundException e) {
       authTokenEntity = authTokenMapper.toEntity(authTokenDto);
+    } catch (Exception e) {
+      throw new SystemApiException("Unknown exception occurred", INTERNAL_SERVER_ERROR);
     }
     authTokenRepository.save(authTokenEntity);
   }

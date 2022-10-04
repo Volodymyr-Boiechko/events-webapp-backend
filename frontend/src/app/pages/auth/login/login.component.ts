@@ -107,4 +107,9 @@ export class LoginComponent extends ClearObservable implements OnInit {
   loginViaGoogle() {
     this.authService.googleLogin();
   }
+
+  loginViaFacebook() {
+    this.authService.facebookLogin();
+  }
+
 }

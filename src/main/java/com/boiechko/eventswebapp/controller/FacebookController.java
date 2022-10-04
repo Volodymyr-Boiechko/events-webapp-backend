@@ -11,7 +11,6 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,32 +20,32 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/google")
-@Slf4j
-public class GoogleController {
+@RequestMapping("/api/facebook")
+public class FacebookController {
 
-  private final SocialMediaService googleService;
+  private final SocialMediaService facebookService;
 
-  public GoogleController(@Qualifier("googleServiceImpl") final SocialMediaService googleService) {
-    this.googleService = googleService;
+  public FacebookController(
+      @Qualifier("facebookServiceImpl") final SocialMediaService facebookService) {
+    this.facebookService = facebookService;
   }
 
   @GetMapping("/create-authorization")
   public ResponseEntity<ApiAuthUrlDto> createAuthorization(
       @RequestParam(value = "redirectUrl", required = false) final String redirectUrl) {
-    return ResponseEntity.ok(googleService.createAuthorization(redirectUrl));
+    return ResponseEntity.ok(facebookService.createAuthorization(redirectUrl));
   }
 
   @GetMapping
   public ResponseEntity<String> authenticateInSystem(
       @RequestParam("state") final String state,
       @RequestParam("code") final String code,
-      @RequestParam("scope") final String scope) {
+      @RequestParam(value = "scope", required = false) final String scope) {
 
     final Map<String, String> stateMap =
         JacksonUtils.deserialize(state, new TypeReference<Map<String, String>>() {});
 
-    final JwtTokenDto jwtTokenDto = googleService.authenticateInSystem(code, stateMap);
+    final JwtTokenDto jwtTokenDto = facebookService.authenticateInSystem(code, stateMap);
 
     if (Objects.isNull(stateMap) || Objects.isNull(stateMap.get(AppConstants.REDIRECT_URL))) {
       return ResponseEntity.ok(jwtTokenDto.getJwtToken());
@@ -64,4 +63,5 @@ public class GoogleController {
       return ResponseEntity.status(HttpStatus.FOUND).header("location", locationUrl).build();
     }
   }
+
 }

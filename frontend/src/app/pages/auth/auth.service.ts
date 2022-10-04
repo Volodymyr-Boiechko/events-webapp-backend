@@ -6,6 +6,7 @@ import {ApiAuthUrl} from "../../types/api-auth-url";
 import {NgxSpinnerService} from "ngx-spinner";
 import {ToasterConfigService} from "../../shared/services/toaster-config.service";
 import {AuthUser} from "../../types/auth-user";
+import {finalize} from "rxjs/operators";
 
 
 @Injectable({
@@ -16,6 +17,7 @@ export class AuthService {
 
   private userAuthApiUrl = 'api/login';
   private googleApiUrl = 'api/google';
+  private facebookApiUrl = 'api/facebook';
 
   constructor(private http: HttpClient,
               private sharedService: SharedService,
@@ -28,7 +30,7 @@ export class AuthService {
     return this.http.post(this.userAuthApiUrl, req);
   }
 
-  logout(isAdmin = false) {
+  logout(isAdmin = false): void {
     localStorage.clear();
     if (!this.sharedService.isPublicPage()) {
       isAdmin ? this.router.navigate(['/admin-login']) : this.router.navigate(['/login']);
@@ -53,26 +55,49 @@ export class AuthService {
 
   googleLogin() {
 
-    this.authorizeGoogleUser(window.location.href)
+    this.spinner.show('full');
+    this.authorizeSocialMediaUser(window.location.href, this.googleApiUrl)
+    .pipe(
+      finalize(() => this.spinner.hide('full'))
+    )
     .subscribe((res: ApiAuthUrl) => {
       window.location.href = res.apiAuthUrl;
     }, (err: HttpErrorResponse) => {
 
-      this.spinner.hide('full');
       if (err.status === 429) {
         let errorObject = JSON.parse(err.error);
         this.toaster.error(errorObject.message);
       } else {
         this.sharedService.defaultError();
       }
-
     });
 
   }
 
-  authorizeGoogleUser(redirectUrl: string) {
+  authorizeSocialMediaUser(redirectUrl: string, apiUrl: string) {
     let params = new HttpParams().set('redirectUrl', redirectUrl);
-    return this.http.get(`${this.googleApiUrl}/create-authorization`, {params});
+    return this.http.get(`${apiUrl}/create-authorization`, {params});
+  }
+
+  facebookLogin() {
+
+    this.spinner.show('full');
+    this.authorizeSocialMediaUser(window.location.href, this.facebookApiUrl)
+    .pipe(
+      finalize(() => this.spinner.hide('full'))
+    )
+    .subscribe((res: ApiAuthUrl) => {
+      window.location.href = res.apiAuthUrl;
+    }, (err: HttpErrorResponse) => {
+
+      if (err.status === 429) {
+        let errorObject = JSON.parse(err.error);
+        this.toaster.error(errorObject.message);
+      } else {
+        this.sharedService.defaultError();
+      }
+    });
+
   }
 
 }

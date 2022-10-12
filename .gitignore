@@ -32,6 +32,6 @@ build/
 ### Frontend ###
 /frontend/node_modules
 /frontend/package-lock.json
-/target/static
+/output/static
 /src/main/resources/public
 .angular/

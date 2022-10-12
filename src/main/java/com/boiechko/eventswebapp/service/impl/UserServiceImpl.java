@@ -16,30 +16,21 @@ import com.boiechko.eventswebapp.util.GeneralUtils;
 import com.boiechko.eventswebapp.util.SecurityUtils;
 import java.util.List;
 import java.util.Objects;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-@Service
 @Slf4j
+@Service
+@RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
 
   private final UserRepository userRepository;
   private final UserMapper userMapper;
   private final PasswordEncoder passwordEncoder;
   private final RoleService roleService;
-
-  public UserServiceImpl(
-      final UserRepository userRepository,
-      final UserMapper userMapper,
-      final PasswordEncoder passwordEncoder,
-      final RoleService roleService) {
-    this.userRepository = userRepository;
-    this.userMapper = userMapper;
-    this.passwordEncoder = passwordEncoder;
-    this.roleService = roleService;
-  }
 
   @Override
   public UserDto getCurrentLoggedInUser() {

@@ -9,6 +9,7 @@ import com.boiechko.eventswebapp.util.Assert;
 import java.util.Map;
 import java.util.Objects;
 import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -17,15 +18,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-@Service
 @Slf4j
+@Service
+@RequiredArgsConstructor
 public class QueryServiceImpl implements QueryService {
 
   private final RestTemplate restTemplate;
-
-  public QueryServiceImpl(RestTemplate restTemplate) {
-    this.restTemplate = restTemplate;
-  }
 
   @Override
   public ResponseEntity<String> makeGetRequest(

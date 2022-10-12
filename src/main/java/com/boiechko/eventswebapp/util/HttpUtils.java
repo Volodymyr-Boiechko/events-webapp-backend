@@ -34,11 +34,9 @@ public class HttpUtils {
   }
 
   public static Map<String, String> getAuthorizationHeader(final String token) {
-    return new HashMap<String, String>() {
-      {
-        put(HttpHeaders.AUTHORIZATION, getAuthorizationBearerToken(token));
-      }
-    };
+    final Map<String, String> authorizationHeaderMap = new HashMap<>();
+    authorizationHeaderMap.put(HttpHeaders.AUTHORIZATION, getAuthorizationBearerToken(token));
+    return authorizationHeaderMap;
   }
 
   public static String getAuthorizationBearerToken(final String token) {

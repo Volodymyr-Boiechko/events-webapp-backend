@@ -1,6 +1,5 @@
 package com.boiechko.eventswebapp.util;
 
-import com.fasterxml.jackson.core.JacksonException;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -42,7 +41,7 @@ public class JacksonUtils {
     try {
       return OBJECT_MAPPER.readValue(json, objectClass);
     } catch (final IOException e) {
-      throw new RuntimeException("Cannot deserialize: " + json, e);
+      throw new IllegalStateException("Cannot deserialize: " + json, e);
     }
   }
 
@@ -53,7 +52,7 @@ public class JacksonUtils {
     try {
       return OBJECT_MAPPER.readValue(json, type);
     } catch (final IOException e) {
-      throw new RuntimeException("Cannot deserialize: " + json, e);
+      throw new IllegalStateException("Cannot deserialize: " + json, e);
     }
   }
 
@@ -64,7 +63,7 @@ public class JacksonUtils {
     try {
       return OBJECT_MAPPER.writeValueAsString(object);
     } catch (final IOException e) {
-      throw new RuntimeException("Cannot serialize: " + object.toString(), e);
+      throw new IllegalStateException("Cannot serialize: " + object, e);
     }
   }
 
@@ -73,7 +72,7 @@ public class JacksonUtils {
     @Override
     public Boolean deserialize(
         final JsonParser jsonParser, final DeserializationContext deserializationContext)
-        throws IOException, JacksonException {
+        throws IOException {
       return jsonParser.getBooleanValue();
     }
 

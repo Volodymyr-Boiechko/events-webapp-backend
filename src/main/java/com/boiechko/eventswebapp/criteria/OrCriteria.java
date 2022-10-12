@@ -30,6 +30,6 @@ public class OrCriteria<T> implements Criteria<T> {
 
   @Override
   public boolean criteriaMet(final T t) {
-    return criteria.stream().anyMatch(criteria -> criteria.criteriaMet(t));
+    return criteria.stream().anyMatch(c -> c.criteriaMet(t));
   }
 }

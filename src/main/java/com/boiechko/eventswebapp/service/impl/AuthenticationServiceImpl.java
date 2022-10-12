@@ -8,6 +8,7 @@ import com.boiechko.eventswebapp.service.AuthenticationService;
 import com.boiechko.eventswebapp.service.JwtTokenService;
 import java.util.Collections;
 import javax.servlet.http.HttpServletRequest;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -18,16 +19,11 @@ import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class AuthenticationServiceImpl implements AuthenticationService {
 
   private final AuthenticationManager authenticationManager;
   private final JwtTokenService jwtTokenService;
-
-  public AuthenticationServiceImpl(
-      final AuthenticationManager authenticationManager, final JwtTokenService jwtTokenService) {
-    this.authenticationManager = authenticationManager;
-    this.jwtTokenService = jwtTokenService;
-  }
 
   @Override
   public Authentication authenticate(final AuthDto authDto, final HttpServletRequest request) {

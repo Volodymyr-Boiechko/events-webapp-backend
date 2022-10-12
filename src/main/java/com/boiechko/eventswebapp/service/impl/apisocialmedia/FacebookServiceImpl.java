@@ -107,12 +107,8 @@ public class FacebookServiceImpl extends AbstractSocialMediaService {
   @Override
   public UserDto getUserInfo(final AuthTokenDto authTokenDto) {
 
-    final Map<String, String> requestParams =
-        new HashMap<String, String>() {
-          {
-            put("fields", "id,name,birthday,email,first_name,last_name,location");
-          }
-        };
+    final Map<String, String> requestParams = new HashMap<>();
+    requestParams.put("fields", "id,name,birthday,email,first_name,last_name,location");
 
     final Map<String, String> headers = getAuthorizationHeader(authTokenDto.getAccessToken());
 

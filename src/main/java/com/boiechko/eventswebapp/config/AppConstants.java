@@ -1,7 +1,10 @@
 package com.boiechko.eventswebapp.config;
 
-public interface AppConstants {
+import lombok.experimental.UtilityClass;
 
-  String REDIRECT_URL = "REDIRECT_URL";
-  String TEMPORARY_IDENTIFIER = "TEMPORARY_IDENTIFIER";
+@UtilityClass
+public final class AppConstants {
+
+  public static final String REDIRECT_URL = "REDIRECT_URL";
+  public static final String TEMPORARY_IDENTIFIER = "TEMPORARY_IDENTIFIER";
 }

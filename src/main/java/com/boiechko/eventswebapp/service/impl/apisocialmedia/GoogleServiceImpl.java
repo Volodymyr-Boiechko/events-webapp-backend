@@ -111,13 +111,10 @@ public class GoogleServiceImpl extends AbstractSocialMediaService {
   @Override
   public UserDto getUserInfo(final AuthTokenDto authTokenDto) {
 
-    final Map<String, String> requestParams =
-        new HashMap<String, String>() {
-          {
-            put("personFields", "addresses,birthdays,emailAddresses,genders,names,phoneNumbers");
-            put("sources", "READ_SOURCE_TYPE_PROFILE");
-          }
-        };
+    final Map<String, String> requestParams = new HashMap<>();
+    requestParams.put(
+        "personFields", "addresses,birthdays,emailAddresses,genders,names,phoneNumbers");
+    requestParams.put("sources", "READ_SOURCE_TYPE_PROFILE");
 
     final Map<String, String> headers = getAuthorizationHeader(authTokenDto.getAccessToken());
 

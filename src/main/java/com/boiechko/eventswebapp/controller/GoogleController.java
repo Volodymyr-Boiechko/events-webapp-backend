@@ -50,18 +50,12 @@ public class GoogleController {
 
     if (Objects.isNull(stateMap) || Objects.isNull(stateMap.get(AppConstants.REDIRECT_URL))) {
       return ResponseEntity.ok(jwtTokenDto.getJwtToken());
-    } else {
-
-      final Map<String, String> queryParams =
-          new HashMap<String, String>() {
-            {
-              put("accessToken", jwtTokenDto.getJwtToken());
-            }
-          };
-
-      final String locationUrl =
-          buildQueryUrlWithoutEncoding(stateMap.get(AppConstants.REDIRECT_URL), queryParams);
-      return ResponseEntity.status(HttpStatus.FOUND).header("location", locationUrl).build();
     }
+    final Map<String, String> queryParams = new HashMap<>();
+    queryParams.put("accessToken", jwtTokenDto.getJwtToken());
+
+    final String locationUrl =
+        buildQueryUrlWithoutEncoding(stateMap.get(AppConstants.REDIRECT_URL), queryParams);
+    return ResponseEntity.status(HttpStatus.FOUND).header("location", locationUrl).build();
   }
 }

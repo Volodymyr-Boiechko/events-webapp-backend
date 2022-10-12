@@ -29,6 +29,6 @@ public class AndCriteria<T> implements Criteria<T> {
 
   @Override
   public boolean criteriaMet(T t) {
-    return criteria.stream().allMatch(criteria -> criteria.criteriaMet(t));
+    return criteria.stream().allMatch(c -> c.criteriaMet(t));
   }
 }

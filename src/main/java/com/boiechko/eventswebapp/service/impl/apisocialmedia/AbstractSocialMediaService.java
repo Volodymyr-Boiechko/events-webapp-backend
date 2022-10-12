@@ -27,6 +27,7 @@ import java.util.Optional;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
@@ -36,6 +37,7 @@ import org.springframework.social.oauth2.OAuth2Operations;
 import org.springframework.social.oauth2.OAuth2Parameters;
 
 @Slf4j
+@RequiredArgsConstructor
 public abstract class AbstractSocialMediaService
     implements SocialMediaService, DestinationTypeService {
 
@@ -48,25 +50,6 @@ public abstract class AbstractSocialMediaService
   protected final AuthenticationService authenticationService;
   protected final UserService userService;
 
-  protected AbstractSocialMediaService(
-      final DestinationType targetDestination,
-      final IdentificationTokenExistsCriteria identificationTokenExistsCriteria,
-      final QueryService queryService,
-      final AuthTokenService authTokenService,
-      final HttpSession httpSession,
-      final HttpServletRequest httpServletRequest,
-      final AuthenticationService authenticationService,
-      final UserService userService) {
-    this.targetDestination = targetDestination;
-    this.identificationTokenExistsCriteria = identificationTokenExistsCriteria;
-    this.queryService = queryService;
-    this.authTokenService = authTokenService;
-    this.httpSession = httpSession;
-    this.httpServletRequest = httpServletRequest;
-    this.authenticationService = authenticationService;
-    this.userService = userService;
-  }
-
   @Override
   public ApiAuthUrlDto createAuthorization(final String redirectUrl) {
 
@@ -78,13 +61,9 @@ public abstract class AbstractSocialMediaService
     httpSession.setAttribute(
         "identificationToken", new IdentificationTokenDto(identificationToken));
 
-    final Map<String, String> queryParams =
-        new HashMap<String, String>() {
-          {
-            put(TEMPORARY_IDENTIFIER, identificationToken);
-            put(REDIRECT_URL, redirectUrl);
-          }
-        };
+    final Map<String, String> queryParams = new HashMap<>();
+    queryParams.put(TEMPORARY_IDENTIFIER, identificationToken);
+    queryParams.put(REDIRECT_URL, redirectUrl);
 
     params.setState(JacksonUtils.serialize(queryParams));
 

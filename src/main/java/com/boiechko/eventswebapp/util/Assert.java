@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
-import java.util.function.Predicate;
+import java.util.function.LongPredicate;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 import lombok.NonNull;
@@ -29,15 +29,15 @@ public class Assert {
     }
   }
 
-  public static <T> void ifTrueThen(boolean condition, Action actionIfTrue) {
+  public static void ifTrueThen(boolean condition, Action actionIfTrue) {
     ifTrueElse(condition, actionIfTrue, NONE_ACTION);
   }
 
-  public static <T> void ifFalseThen(boolean condition, Action actionIfFalse) {
+  public static void ifFalseThen(boolean condition, Action actionIfFalse) {
     ifTrueElse(condition, NONE_ACTION, actionIfFalse);
   }
 
-  public static <T> void ifTrueElse(boolean condition, Action actionIfTrue, Action actionIfFalse) {
+  public static void ifTrueElse(boolean condition, Action actionIfTrue, Action actionIfFalse) {
     if (condition) {
       actionIfTrue.act();
     } else {
@@ -62,7 +62,7 @@ public class Assert {
   }
 
   public static <T> boolean containsParticularNumberOfNeededArgs(
-      @NonNull JoinPoint joinPoint, Class<T> neededArgsType, Predicate<Long> amountPredicate) {
+      @NonNull JoinPoint joinPoint, Class<T> neededArgsType, LongPredicate amountPredicate) {
     return amountPredicate.test(
         Stream.of(joinPoint.getArgs())
             .map(Object::getClass)

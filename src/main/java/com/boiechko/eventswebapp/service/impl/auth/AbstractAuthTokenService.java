@@ -20,26 +20,19 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.client.HttpClientErrorException;
 
 @Slf4j
+@RequiredArgsConstructor
 public abstract class AbstractAuthTokenService implements AuthTokenService, DestinationTypeService {
 
   protected final DestinationType targetDestination;
   protected final AuthTokenRepository authTokenRepository;
   protected final AuthTokenMapper authTokenMapper;
-
-  public AbstractAuthTokenService(
-      final DestinationType targetDestination,
-      final AuthTokenRepository authTokenRepository,
-      final AuthTokenMapper authTokenMapper) {
-    this.targetDestination = targetDestination;
-    this.authTokenRepository = authTokenRepository;
-    this.authTokenMapper = authTokenMapper;
-  }
 
   @Override
   public DestinationType getType() {

@@ -26,4 +26,4 @@ jobs:
       - name: 'Run checkstyle'
         run: mvn checkstyle:check
       - name: 'Run compile with Maven Jobs'
-        run: mvn clean --batch-mode --update-snapshots compile -DtoolchainExcluded
+        run: mvn clean compile

@@ -1,13 +1,13 @@
-name: Run maven compile
+name: Run maven test
 
 on:
-  push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
+  workflow_run:
+    workflows: ["Run maven compile"]
+    types:
+      - completed
 
 jobs:
-  run-compile:
+  run-test:
     runs-on: ubuntu-latest
     permissions:
       contents: 'read'
@@ -23,7 +23,5 @@ jobs:
           java-version: '11'
           distribution: 'adopt'
           cache: 'maven'
-      - name: 'Run checkstyle'
-        run: mvn checkstyle:check
-      - name: 'Run compile'
-        run: mvn clean compile
+      - name: 'Run maven tests'
+        run: mvn clean test

@@ -1,4 +1,4 @@
-name: Run maven compile on push or pull request to master
+name: Run maven compile
 
 on:
   push:

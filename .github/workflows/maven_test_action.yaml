@@ -1,6 +1,8 @@
-name: Run maven tests on push or pull request to master
+name: Run maven tests
 
 on:
+  workflow_run:
+    workflows: ["Run maven compile"]
   push:
     branches: [ master ]
   pull_request:
@@ -8,7 +10,6 @@ on:
 
 jobs:
   run-test:
-    needs: run-compile
     runs-on: ubuntu-latest
     permissions:
       contents: 'read'

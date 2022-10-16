@@ -2,8 +2,8 @@ name: Run maven tests
 
 on:
   workflow_run:
-    workflows: ["Run maven compile"]
-    branches: [ master ]
+    workflows:
+      [ Run maven compile ]
     types:
       - completed
 
@@ -17,6 +17,8 @@ jobs:
     steps:
       - name: 'Checkout'
         uses: 'actions/checkout@v3'
+        with:
+          ref: ${{ github.event.workflow_run.head_branch }}
       - id: 'compile'
         name: 'Set up JDK 11'
         uses: 'actions/setup-java@v3'

@@ -44,8 +44,7 @@ public abstract class AbstractAuthTokenService implements AuthTokenService, Dest
 
     Assert.isTrue(
         Objects.isNull(authTokenDto.getDestinationType()),
-        () -> new CriteriaNotMetException(
-            "Auth token destination type should not be empty jhghjg jhgjhgjhghjghjgjhg jhgj gj gjhghjh hkhkhkh hkhkj"));
+        () -> new CriteriaNotMetException("Auth token destination type should not be empty"));
 
     Assert.isTrue(
         Objects.isNull(authTokenDto.getUser()) || Objects.isNull(authTokenDto.getUser().getId()),

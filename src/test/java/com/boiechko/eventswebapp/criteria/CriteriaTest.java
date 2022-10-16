@@ -26,7 +26,7 @@ class CriteriaTest {
   @Test
   void shouldMetCriteria() {
     assertTrue(stringNotEmptyCriteria.criteriaMet("test string"));
-    assertFalse(stringNotEmptyCriteria.criteriaMet(""));
+    assertFalse(stringNotEmptyCriteria.criteriaMet("dadad"));
 
     assertTrue(stringContainsOnlyDigitsCriteria.criteriaMet("123456789"));
     assertFalse(stringContainsOnlyDigitsCriteria.criteriaMet("test123512"));

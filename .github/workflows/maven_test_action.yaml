@@ -1,4 +1,4 @@
-name: Run maven tests
+name: Run maven test
 
 on:
   workflow_run:

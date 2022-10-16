@@ -44,7 +44,8 @@ public abstract class AbstractAuthTokenService implements AuthTokenService, Dest
 
     Assert.isTrue(
         Objects.isNull(authTokenDto.getDestinationType()),
-        () -> new CriteriaNotMetException("Auth token destination type should not be empty"));
+        () -> new CriteriaNotMetException(
+            "Auth token destination type should not be empty jhghjg jhgjhgjhghjghjgjhg jhgj gj gjhghjh hkhkhkh hkhkj"));
 
     Assert.isTrue(
         Objects.isNull(authTokenDto.getUser()) || Objects.isNull(authTokenDto.getUser().getId()),
@@ -113,7 +114,7 @@ public abstract class AbstractAuthTokenService implements AuthTokenService, Dest
    *
    * @return {@link AuthTokenDto}
    * @throws AuthTokenNotFoundException in case neither alive nor expired {@link AuthTokenEntity}
-   *     was found for given account id.
+   *                                    was found for given account id.
    */
   @Override
   public AuthTokenDto authTokenForUser(final Long accountId) {
@@ -159,7 +160,7 @@ public abstract class AbstractAuthTokenService implements AuthTokenService, Dest
   public boolean canBeRefreshed(final AuthTokenDto authToken) {
     return Objects.nonNull(authToken.getRefreshToken())
         && (Objects.isNull(authToken.getRefreshTokenExpiresIn())
-            || authToken.getRefreshTokenExpiresIn().isAfter(getCurrentDateTime()));
+        || authToken.getRefreshTokenExpiresIn().isAfter(getCurrentDateTime()));
   }
 
   @Override

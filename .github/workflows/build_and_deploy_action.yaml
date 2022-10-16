@@ -1,0 +1,65 @@
+name: 'Build and deploy backend application to Amazon ECR'
+
+on:
+  release:
+    types: [published]
+
+  workflow_dispatch:
+    inputs:
+      profile:
+        description: 'Choose profile'
+        required: true
+        default: 'staging'
+        type: choice
+        options:
+          - staging
+          - prod
+      docker-image-tag:
+        description: 'Choose docker image tag'
+        required: false
+        default: 'latest'
+        type: string
+
+env:
+  AWS_REGION: eu-central-1
+  ECR_REPOSITORY: events-backend
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Checkout'
+        uses: 'actions/checkout@v3'
+
+      - name: 'Set up JDK 11'
+        uses: 'actions/setup-java@v3'
+        with:
+          java-version: '11'
+          distribution: 'adopt'
+          cache: 'maven'
+
+      - name: 'Build with Maven'
+        run: mvn --batch-mode --update-snapshots package -P ${{ inputs.profile }}
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+
+      - name: Build, tag, and push image to Amazon ECR
+        id: build-image
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          IMAGE_TAG: ${{ inputs.docker-image-tag }}
+        run: |
+          # Build a docker container and push it to ECR.
+          docker build --build-arg PROFILE=${{ inputs.profile }} --no-cache -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+          echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
+

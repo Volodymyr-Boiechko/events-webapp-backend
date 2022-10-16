@@ -6,4 +6,7 @@ COPY ${JAR_FILE} app.jar
 
 EXPOSE 8082
 
-ENTRYPOINT ["java", "-jar", "-Dspring.profiles.active=prod", "app.jar"]
+ARG PROFILE=prod
+ENV PROFILE_OPTIONS=$PROFILE
+
+ENTRYPOINT ["sh", "-c", "java -Dspring.profiles.active=$PROFILE_OPTIONS -jar app.jar"]

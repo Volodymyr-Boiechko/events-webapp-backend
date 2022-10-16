@@ -1,0 +1,11 @@
+{
+  "AWSEBDockerrunVersion": "1",
+  "Image": {
+    "Name": "014876987943.dkr.ecr.eu-central-1.amazonaws.com/events-backend:latest"
+  },
+  "Ports": [
+    {
+      "ContainerPort": 8082
+    }
+  ]
+}

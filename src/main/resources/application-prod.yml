@@ -17,7 +17,7 @@ facebook:
   appId: 755177369114699
   appSecret: 90ab026ae80a8cf5cd75bb067f870e65
 
-base-url: http://localhost:8082
+base-url: http://eventsbackend-env-2.eba-pzp3qupb.eu-central-1.elasticbeanstalk.com
 
 datasource:
   schema: events

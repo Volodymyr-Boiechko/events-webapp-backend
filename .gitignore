@@ -29,12 +29,6 @@ build/
 !**/src/main/**/build/
 !**/src/test/**/build/
 
-### Frontend ###
-/frontend/node_modules
-/frontend/package-lock.json
-/output/static
-/src/main/resources/public
-.angular/
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
 !.elasticbeanstalk/*.cfg.yml

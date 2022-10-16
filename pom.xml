@@ -24,10 +24,6 @@
     <hibernate.version>5.6.5.Final</hibernate.version>
     <mapstruct.version>1.4.2.Final</mapstruct.version>
     <lombok.version>1.18.22</lombok.version>
-
-    <frontend-plugin.verion>1.6</frontend-plugin.verion>
-    <client.project>${basedir}/frontend</client.project>
-    <node.version>v14.15.0</node.version>
   </properties>
 
   <dependencyManagement>

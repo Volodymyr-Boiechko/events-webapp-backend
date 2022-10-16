@@ -3,8 +3,7 @@ name: Run maven tests
 on:
   workflow_run:
     workflows: [Run maven compile]
-    types:
-      - completed
+    types: [completed]
 
 jobs:
   on-success:
@@ -12,3 +11,8 @@ jobs:
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     steps:
       - run: echo 'The triggering workflow passed'
+  on-failure:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'failure' }}
+    steps:
+      - run: echo 'The triggering workflow failed'

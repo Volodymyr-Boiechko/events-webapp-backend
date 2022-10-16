@@ -2,8 +2,7 @@ name: Run maven tests
 
 on:
   workflow_run:
-    workflows:
-      - [ "Run maven compile" ]
+    workflows: [ Run maven compile ]
     types:
       - completed
 
